@@ -1,47 +1,74 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Conta Bancaria</title>
-  <script src="./app.js" async></script>
-  <link rel="stylesheet" href="./estilos.css">
-</head>
-<body>
-  <main>
-    <header>
-      <nav>
-          <img id="logo" src="Imagens/logobanco.png" alt="logobanco" >
-          <h2>Banco do Brasileiro</h2>      
-          <ul>
-              <li><a href="index.html">Início</a></li>
-              <li><a href="cadastro.html">Abra sua Conta</a></li>
-              <li><a href="operacoes.html">Serviços</a></li>
-          </ul>
-      </nav>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./assets/logobanco.png" />
+    <link rel="stylesheet" href="./estilos.css" />
+    <script src="./app.js" async></script>
+    <title>DevInTasks</title>
+  </head>
+  <body>
+    <header class="header">
+      <img src="./assets/logobanco.png" alt="Logo DevInTask" />
+      <h1 class="title">Banco do Brasileiro</h1>
     </header>
-    <!--titulo-->
-    <h1>Projeto Conta Bancaria</h1>
-    <hr> <!--linha horizontal-->
-    <h3>Abra sua conta</h3>
-    <form>
-      <label for="nome">Nome:</label>
-      <input type="text">
-      <label for="cpf">CPF:</label>
-      <input type="text">
-      <label for="cel">Celular:</label>
-      <input type="text">
-      <label for="senha">Senha:</label>
-      <input type="password">
-      <label for="confirmSenha">Confirme sua senha:</label>
-      <input type="password">
-      <button type="submit">Enviar</button>
-      <button type="reset">Limpar</button>
-    </form>
-  </main>
-    <footer>
-        <p>Projeto Conta Bancaria - Feito por Mariana de Carvalho G. Daruix.</p>
-    </footer>
-</body>
+    <main class="main">
+      <!--Inicio do formulario-->
+      <section>
+        <form id="form-cadastro" class="form">
+          <h2 class="subtitle">Abra sua conta</h2>
+          <div class="row">
+            <div class="column">
+              <label for="nome">Nome:</label>
+              <input required id="nome" class="input" type="text" placeholder="Digite seu nome" />
+              <label for="cpf">CPF:</label>
+              <input required id="cpf" class="input" type="text" placeholder="Digite seu CPF" />
+              <label for="celular">Celular:</label>
+              <input required id="celular" class="input" type="text" placeholder="Digite seu Celular" />
+              <label for="senha">Senha:</label>
+              <input required id="senha" class="input" type="password" placeholder="Digite sua senha" />
+              <label for="confirmSenha">Confirme sua senha:</label>
+              <input required id="confirmSenha" class="input" type="password" placeholder="Confirme sua senha" />
+            </div>
+           
+          </div>
+          <div class="form-actions">
+            <button class="button-secondary" type="reset">Limpar</button>
+            <button class="button-primary" type="submit">Cadastrar</button>
+          </div>
+        </form>
+      </section>
+      <!--Fim do formulario-->
+      <!--Inicio das Operacoes-->
+      <section>
+        <form id="form-operacao" class="form">
+          <h2 class="subtitle">Serviços</h2>
+          <div class="row">
+            <div class="column">
+              <label for="conta">Conta:</label>
+              <input required id="conta" class="input" type="text" placeholder="Digite o numero da sua conta" />
+              <select required class="select" id="operacao">
+                <option disable>Selecione a Operacao</option>
+                <option value="saque">Saque</option>
+                <option value="deposito">Deposito</option>
+                <option value="saldo">Consulta Saldo</option>
+              </select>
+              <label for="valor">Valor:</label>
+              <input required id="valor" class="input" type="number" placeholder="Digite o valor" />
+              <label for="senha">Senha:</label>
+              <input required id="senha" class="input" type="password" placeholder="Digite sua senha" />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="button-secondary" type="reset">Limpar</button>
+            <button class="button-confirm" type="submit">Confirmar</button>
+          </div>
+        </form>
+      </section>
+      <!--Fim das Operacoes-->
+    </main>
+    <footer class="footer"><h2 class="copy">Criado por Mariana Daruix </h2></footer>
+  </body>
 </html>
