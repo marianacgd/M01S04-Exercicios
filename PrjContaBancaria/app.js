@@ -4,8 +4,8 @@ let contas = [
     cpf: '999.999.999.99',
     celular: '(99) 99999-9999',
     senha: '1',
-    conta: 1674333795439,
-    saldo: 0,
+    conta: 1,
+    saldo: 100,
   },
 ]; //Cria variavel para armazenar lista de contas
 
@@ -49,17 +49,33 @@ const formOperacao = document.getElementById('form-operacao'); //Obtem formulari
 
 const sacar = (conta, valor) => {
   //Funcao Saque
-  console.log('Sacar');
+  if (valor > 0) {
+    if (conta.saldo >= valor) {
+      const novoSaldo = conta.saldo - valor;
+      conta.saldo = novoSaldo;
+      alert(`Saque efetuado com sucesso! Novo saldo: ${novoSaldo}`);
+      return;
+    }
+    alert('Saldo insuficiente');
+    return;
+  }
+  alert('Nao foi possivel efetuar o saque');
 };
 
 const depositar = (conta, valor) => {
   //Funcao Deposito
-  console.log('Depositar');
+  if (valor > 0) {
+    const novoSaldo = conta.saldo + valor;
+    conta.saldo = novoSaldo;
+    alert(`Deposito efetuado com sucesso! Novo saldo: ${novoSaldo}`);
+    return;
+  }
+  alert('Nao foi possivel efetuar o deposito');
 };
 
 const consultarSaldo = (conta) => {
   //Funcao Consultar Saldo
-  console.log('Saldo');
+  alert(`Saldo atual: ${conta.saldo}`);
 };
 
 const enviarFormularioOperacao = (event) => {
@@ -91,7 +107,7 @@ const enviarFormularioOperacao = (event) => {
       depositar(contaAtul, valor);
       break;
     case 'saldo':
-      consultarSaldo(conta);
+      consultarSaldo(contaAtul);
       break;
     default:
       alert('Operacao invalida!');
@@ -100,3 +116,18 @@ const enviarFormularioOperacao = (event) => {
 };
 
 formOperacao.addEventListener('submit', enviarFormularioOperacao);
+
+//desabilitar/habilitar campo valor
+//Obtem select para adicionar event de onchange
+const operacao = document.getElementById('operacao');
+operacao.addEventListener('change', (event) => {
+  //Obtem o campo de valor do html
+  const inputValor = document.getElementById('valor');
+
+  if (event.target.value === 'saldo') {
+    inputValor.disabled = true;
+    inputValor.value = '';
+    return;
+  }
+  inputValor.disabled = false;
+});
