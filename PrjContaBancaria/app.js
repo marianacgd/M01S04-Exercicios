@@ -1,15 +1,15 @@
 let contas = [
   {
-    nome: 'Thais Bertoldo',
-    cpf: '999.999.999.99',
-    celular: '(99) 99999-9999',
+    nome: 'Mariana D',
+    cpf: '111.222.333-44',
+    celular: '(11) 1234-5678',
     senha: '1',
     conta: 1,
-    saldo: 100,
+    saldo: 0,
   },
-]; //Cria variavel para armazenar lista de contas
+]; //Cria variavel para armazenar lista de contas *Add conta inicial de exemplo nos testes
 
-const formulario = document.getElementById('form-cadastro'); //Obtem o form para add evento
+const formulario = document.getElementById('form-cadastro'); //Obtem o form para adicionar evento
 
 //Criacao da funcao para para ser executada no envio do form
 const enviarFormulario = (event) => {
@@ -17,18 +17,20 @@ const enviarFormulario = (event) => {
 
   const senha = event.target.senha.value; //Obtem campo senha
   const confirmacaoSenha = event.target.confirmacaoSenha.value; //Obtem campo confirmacaoSenha
-
+  //Validacao que verifica se os campos senha e confirmacaoSenha sao iguais
   if (senha !== confirmacaoSenha) {
     alert('Senhas sao divergentes!');
     return;
   }
 
+  //Obtem valores digitados no form
   const nome = event.target.nome.value;
   const cpf = event.target.cpf.value;
   const celular = event.target.celular.value;
   const conta = new Date().getTime();
   const saldo = 0;
 
+  //Criacao do objeto contaCriada
   const contaCriada = {
     conta,
     nome,
@@ -38,76 +40,83 @@ const enviarFormulario = (event) => {
     saldo,
   };
 
-  contas.push(contaCriada);
-  alert(`Conta criada com sucesso. Numero: ${conta}`);
+  contas.push(contaCriada); //Adiciona conta no Array
+  alert(`Conta criada com sucesso. Numero: ${conta}`); //exibe informacao de sucesso ao usuario
 };
 
-formulario.addEventListener('submit', enviarFormulario);
+formulario.addEventListener('submit', enviarFormulario); //Adiciona funcao ao evento de submit do form
 
-//Operacoes
-const formOperacao = document.getElementById('form-operacao'); //Obtem formulario de operacoes
+//Inicio das Operacoes
+const formOperacao = document.getElementById('form-operacao'); //Obtem form de operacoes
 
+//Cria Funcao de Saque
 const sacar = (conta, valor) => {
-  //Funcao Saque
+  //Verificao se o valor e maior que 0
   if (valor > 0) {
+    //Verifica se tem saldo disponivel na conta
     if (conta.saldo >= valor) {
-      const novoSaldo = conta.saldo - valor;
-      conta.saldo = novoSaldo;
-      alert(`Saque efetuado com sucesso! Novo saldo: ${novoSaldo}`);
+      const novoSaldo = conta.saldo - valor; //Cria novoSaldo e recebe a subtracao do valor da conta
+      conta.saldo = novoSaldo; //Atribui o novoSaldo ao saldo da conta
+      alert(`Saque efetuado com sucesso! Novo saldo: ${novoSaldo}`); //Exibe informacao de sucesso ao usuario com o valor atualizado
       return;
     }
-    alert('Saldo insuficiente');
+    alert('Saldo insuficiente'); //Se nao exibe informacao de falta de saldo ao usuario
     return;
   }
-  alert('Nao foi possivel efetuar o saque');
+  alert('Nao foi possivel efetuar o saque'); //Se nao exibe informacao de insucesso ao usuario
 };
 
+//Cria Funcao de Deposito
 const depositar = (conta, valor) => {
-  //Funcao Deposito
+  //Verifica se o valor e maior que 0
   if (valor > 0) {
-    const novoSaldo = conta.saldo + valor;
-    conta.saldo = novoSaldo;
-    alert(`Deposito efetuado com sucesso! Novo saldo: ${novoSaldo}`);
+    const novoSaldo = conta.saldo + valor; //Cria novoSaldo e recebe a adicao do valor da conta
+    conta.saldo = novoSaldo; //Atribui o novoSaldo ao saldo da conta
+    alert(`Deposito efetuado com sucesso! Novo saldo: ${novoSaldo}`); //Exibe informacao de sucesso ao usuario com o valor atualizado
     return;
   }
-  alert('Nao foi possivel efetuar o deposito');
+  alert('Nao foi possivel efetuar o deposito'); //Se nao exibe informacao de insucesso ao usuario
 };
 
+//Cria Funcao de Consultar Saldo
 const consultarSaldo = (conta) => {
-  //Funcao Consultar Saldo
-  alert(`Saldo atual: ${conta.saldo}`);
+  alert(`Saldo atual: ${conta.saldo}`); //Exibe informacao ao usuario com o valor do saldo atualizado
 };
 
+//Cria Funcao de Enviar formulario de operacao
 const enviarFormularioOperacao = (event) => {
-  event.preventDefault();
+  event.preventDefault(); //Evita comportamento padrao do evento de submit do form
 
+  //Obtem valores digitados no form de operacoes
   const conta = parseInt(event.target.conta.value);
   const operacao = event.target.operacao.value;
   const valor = parseFloat(event.target.valor.value);
   const senha = event.target.senhaOperacao.value;
 
-  const contaAtul = contas.find((elemento) => elemento.conta === conta); //Obtem conta
+  const contaAtual = contas.find((elemento) => elemento.conta === conta); //Cria contaAtual e Obtem conta
+
   //Validacao para verificar existencia da conta
-  if (!conta) {
-    alert('Conta invalida!');
+  if (!contaAtual) {
+    alert('Conta invalida!'); //Exibe informacao ao usuario
     return;
   }
 
-  if (contaAtul.senha !== senha) {
-    alert('Senha invalida!');
+  //Valida se a senha esta correta
+  if (contaAtual.senha !== senha) {
+    alert('Senha invalida!'); //Exibe informacao ao usuario
     return;
   }
 
   //Chamar funcao correta de acordo com a operacao
   switch (operacao) {
     case 'saque':
-      sacar(contaAtul, valor);
+      sacar(contaAtual, valor);
       break;
     case 'deposito':
-      depositar(contaAtul, valor);
+      depositar(contaAtual, valor);
       break;
     case 'saldo':
-      consultarSaldo(contaAtul);
+      consultarSaldo(contaAtual);
       break;
     default:
       alert('Operacao invalida!');
@@ -115,19 +124,20 @@ const enviarFormularioOperacao = (event) => {
   }
 };
 
-formOperacao.addEventListener('submit', enviarFormularioOperacao);
+formOperacao.addEventListener('submit', enviarFormularioOperacao); //Adiciona funcao ao evento de submit do form operacao
 
-//desabilitar/habilitar campo valor
-//Obtem select para adicionar event de onchange
-const operacao = document.getElementById('operacao');
+//Desabilitar/habilitar campo de valor
+//Obtem select para adicionar evento de onchange
+const operacao = document.getElementById('operacao'); //Obtem operacao
 operacao.addEventListener('change', (event) => {
   //Obtem o campo de valor do html
-  const inputValor = document.getElementById('valor');
+  const inputValor = document.getElementById('valor'); //Obtem o campo de valor do html
 
+  //Verifica se o valor selecionado e saldo
   if (event.target.value === 'saldo') {
-    inputValor.disabled = true;
-    inputValor.value = '';
+    inputValor.disabled = true; //desabilita o campo valor
+    inputValor.value = ''; //Limpa o valor digitado
     return;
   }
-  inputValor.disabled = false;
+  inputValor.disabled = false; //Habilita o campo de valor quando a operacao for diferente de saldo
 });
