@@ -46,6 +46,11 @@ select:focus {
   border: 1.5px dashed var(--blue);
 }
 
+input[type="number"]::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 button {
   border-radius: 10px;
   padding: 8px;
